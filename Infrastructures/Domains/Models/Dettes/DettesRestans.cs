@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructures.Domains.Models.Dettes
+namespace GestionPersonnel.Models.Dettes
 {
-    public class DettesRestants
+    public class DetteRestant
     {
         public int IdDettesRestants { get; set; }
         public int EmployeId { get; set; }

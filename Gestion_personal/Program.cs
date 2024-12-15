@@ -19,6 +19,7 @@ using GestionPersonnel.Storages.DettesStorages;
 
 
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 
@@ -37,7 +38,9 @@ builder.Services.AddScoped<EquipeStorage>();
 builder.Services.AddScoped<EmployeeEquipeStorage> ();
 builder.Services.AddScoped<PosteStorage>();
 builder.Services.AddScoped<AvanceStorage>();
+builder.Services.AddScoped<DetteRestantStorage>();
 builder.Services.AddScoped<DetteStorage>();
+
 builder.Services.AddScoped<ITypeDePaiementService, TypeDePaiementService>();
 builder.Services.AddScoped<IEmployeService, EmployeService>();
 builder.Services.AddScoped<IFonctionService, FonctionService>();
@@ -51,6 +54,8 @@ builder.Services.AddScoped<IPosteService, PosteService>();
 builder.Services.AddScoped<IAvanceService, AvanceService>();
 builder.Services.AddScoped<IDetteService, DetteService>();
 builder.Services.AddScoped<IPdfService,PdfService>();
+builder.Services.AddScoped<IDetteRestantService, DetteRestantService>();
+
 
 var app = builder.Build();
 

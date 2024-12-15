@@ -51,30 +51,30 @@ namespace GestionPersonnel.Storages.EmployeesStorages
     INNER JOIN Fonctions F ON E.FonctionID = F.FonctionID
     WHERE E.Nom = @Nom AND E.Prenom = @Prenom AND F.NomFonction = @NomFonction";
 
-     
 
 
-        private static Employee GetEmployeFromDataRow(DataRow row)
-        {
-            return new Employee
-            {
-                EmployeID = (int)row["EmployeID"],
-                Nom = (string)row["Nom"],
-                Prenom = (string)row["Prenom"],
-                DateDeNaissance = (DateTime)row["DateDeNaissance"],
-                NSecuriteSocial = (string)row["NSecuriteSocial"],
-                Adresse = (string)row["Adresse"],
-                GroupSanguin = (string)row["GroupSanguin"],
-                NTelephone = (string)row["NTelephone"],
-                FonctionID = Convert.ToInt32(row["FonctionID"]),
-                DateEntree = (DateTime)row["DateEntree"],
-                DateSortie = row["DateSortie"] != DBNull.Value ? (DateTime)row["DateSortie"] : (DateTime?)null,
-                SitiationFamiliale = (string)row["SitiationFamiliale"],
-                Photo = row["Photo"] as byte[],
-                FonctionName = row["NomFonction"].ToString()
-               
-            };
-        }
+
+      private static Employee GetEmployeFromDataRow(DataRow row)
+{
+    return new Employee
+    {
+        EmployeID = row["EmployeID"] != DBNull.Value ? (int)row["EmployeID"] : 0,
+        Nom = row["Nom"] != DBNull.Value ? (string)row["Nom"] : string.Empty,  // Check for DBNull
+        Prenom = row["Prenom"] != DBNull.Value ? (string)row["Prenom"] : string.Empty,  // Check for DBNull
+        DateDeNaissance = (DateTime)(row["DateDeNaissance"] != DBNull.Value ? (DateTime)row["DateDeNaissance"] : (DateTime?)null),
+        NSecuriteSocial = row["NSecuriteSocial"] != DBNull.Value ? (string)row["NSecuriteSocial"] : string.Empty,  // Check for DBNull
+        Adresse = row["Adresse"] != DBNull.Value ? (string)row["Adresse"] : string.Empty,  // Check for DBNull
+        GroupSanguin = row["GroupSanguin"] != DBNull.Value ? (string)row["GroupSanguin"] : string.Empty,  // Check for DBNull
+        NTelephone = row["NTelephone"] != DBNull.Value ? (string)row["NTelephone"] : string.Empty,  // Check for DBNull
+        FonctionID = row["FonctionID"] != DBNull.Value ? Convert.ToInt32(row["FonctionID"]) : 0,
+        DateEntree = (DateTime)(row["DateEntree"] != DBNull.Value ? (DateTime)row["DateEntree"] : (DateTime?)null),
+        DateSortie = row["DateSortie"] != DBNull.Value ? (DateTime?)row["DateSortie"] : null,
+        SitiationFamiliale = row["SitiationFamiliale"] != DBNull.Value ? (string)row["SitiationFamiliale"] : string.Empty,  // Check for DBNull
+        Photo = row["Photo"] != DBNull.Value ? (byte[])row["Photo"] : null,
+        FonctionName = row["NomFonction"] != DBNull.Value ? (string)row["NomFonction"] : string.Empty  // Check for DBNull
+    };
+}
+
 
         public async Task<List<Employee>> GetAll()
         {

@@ -1,8 +1,10 @@
 ﻿@using GestionPersonnel.Models.Employe
 @using GestionPersonnel.Models.Dettes
+
 @using GestionPersonnel.Services
 @inject IEmployeService EmployeService
 @inject IDetteService DetteService
+@inject IDetteRestantService DetteRestantService
 
 <div class="modal-overlay" style="@DisplayStyle">
     <div class="modal-content">
@@ -61,10 +63,17 @@
                     Montant = montantDette,
                     Date = DateTime.Now // Or any date you prefer
                 };
+            var newDettesRestants = new DetteRestant
+                {
+                    EmployeId = selectedEmployeId,
+                    DettesRestants = montantDette,
+                      // Or any date you prefer
+                };
+
 
             // Call the service to add the debt
             await DetteService.AddAsync(newDette);
-
+            await DetteRestantService.AjouterDetteRestanteAsync(newDettesRestants);
             // Reset form fields
             selectedEmployeId = 0;
             montantDette = 0;

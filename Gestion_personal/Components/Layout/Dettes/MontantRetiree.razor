@@ -1,7 +1,9 @@
 ﻿@using GestionPersonnel.Models.Employe
+@using GestionPersonnel.Models.Dettes
 @using GestionPersonnel.Services
 @inject IEmployeService EmployeService
 @inject ISalaireService SalaireService
+@inject IDetteRestantService detterestant
 
 <div class="modal-overlay" style="@DisplayStyle">
     <div class="modal-content">
@@ -67,7 +69,7 @@
         {
             // Call the service to update the dette
             await SalaireService.UpdateDetteAsync(selectedEmployeId.Value, montant, selectedDate.Value);
-
+            await detterestant.MontantRetirer(selectedEmployeId.Value, montant);
             // Optionally reset form fields
             selectedEmployeId = null;
             selectedDate = null;
